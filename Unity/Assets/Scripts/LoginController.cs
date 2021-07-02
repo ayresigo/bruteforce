@@ -10,7 +10,6 @@ public class LoginController : MonoBehaviour
     public InputField loginInput;
     public InputField passwordInput;
     public Button submitButton;
-    public GameObject playerSession;
 
     public void callLogin()
     {
@@ -44,7 +43,34 @@ public class LoginController : MonoBehaviour
             {
                 Debug.Log("Usuário conectado! Resgatando dados do banco...");
                 account_infoArr = account_info.Split("*"[0]);
-                
+
+                Debug.Log("Iniciando sessão...");
+                GameObject session = new GameObject();
+                session.name = "Player Session";
+                session.AddComponent<SessionManager>();
+
+                /* account_infoArr =    #
+                 * 1,                   0
+                 * login,               1
+                 * creation_date        2
+                 */
+
+                for (int i = 0; i < account_infoArr.Length; i++)
+                {
+                    switch (i)
+                    {
+                        case 1:
+                            session.GetComponent<SessionManager>().login = account_infoArr[i];
+                            Debug.Log("Login: " + account_infoArr[i]);
+                            break;
+                        case 2:
+                            session.GetComponent<SessionManager>().creation_date = account_infoArr[i];
+                            Debug.Log("Creation Date: " + account_infoArr[i]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }            
         }
     }
