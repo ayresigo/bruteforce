@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59636538f00c208478ed08fec5dcb333, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  jobId: 0
-  jobName: 
-  jobDescription: 
-  jobBaseHealth: 0
-  jobBaseMana: 0
-  jobBaseManaspd: 0
-  jobBaseAttack: 0
-  jobBaseMagic: 0
-  jobBaseDefense: 0
-  jobBaseAttackspd: 0
-  jobBaseCritchance: 0
-  jobBaseCritdmg: 0
-  jobSkills: []
+  id: 0
+  name: 
+  description: 
+  health: 0
+  mana: 0
+  manaspd: 0
+  attack: 0
+  magic: 0
+  defense: 0
+  attackspd: 0
+  critchance: 0
+  critdmg: 0
+  skills: []

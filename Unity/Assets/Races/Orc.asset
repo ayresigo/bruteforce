@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd4fa02bcba73b4c90226807cc882e3, type: 3}
   m_Name: Orc
   m_EditorClassIdentifier: 
-  raceId: 0
-  raceName: 
-  raceDescription: 
-  raceBaseHealth: 0
-  raceBaseMana: 0
-  raceBaseManaspd: 0
-  raceBaseAttack: 0
-  raceBaseMagic: 0
-  raceBaseDefense: 0
-  raceBaseAttackspd: 0
-  raceBaseCritchance: 0
-  raceBaseCritdmg: 0
-  raceSkills: []
+  id: 0
+  name: 
+  description: 
+  health: 0
+  mana: 0
+  manaspd: 0
+  attack: 0
+  magic: 0
+  defense: 0
+  attackspd: 0
+  critchance: 0
+  critdmg: 0
+  skills: []

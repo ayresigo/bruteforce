@@ -15,4 +15,13 @@ MonoBehaviour:
   id: 0
   name: 
   description: 
+  health: 0
+  mana: 0
+  manaspd: 0
+  attack: 0
+  magic: 0
+  defense: 0
+  attackspd: 0
+  critchance: 0
+  critdmg: 0
   skills: []
