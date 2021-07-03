@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd4fa02bcba73b4c90226807cc882e3, type: 3}
+  m_Name: Diamond
+  m_EditorClassIdentifier: 
+  id: ead3939b-c29e-4860-979d-14b13c6482b7
+  name: Diamond
+  description: 'Diamonds are focused in sustainbility.
+
+    They usually have the
+    biggest HP and defense numbers.'
+  shapeMesh: {fileID: 3047503064463021889, guid: 70d137cb359e05d47b2e8be9e26d20aa,
+    type: 3}
+  health: 300
+  mana: 100
+  manaspd: 20
+  attack: 10
+  magic: 10
+  defense: 10
+  attackspd: 10
+  critchance: 10
+  critdmg: 10
+  skillset:
+  - {fileID: 11400000, guid: 5303a1f5befa4b542b35d929e625b2c4, type: 2}
+  activeSkills:
+  - {fileID: 11400000, guid: efad21324dd3d70499e070e7de228a49, type: 2}
+  passiveSkills: []

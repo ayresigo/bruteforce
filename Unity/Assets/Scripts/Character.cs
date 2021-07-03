@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public int id;
+    [Header("Indentity")]
+    public string id;
     public string name;
     public string surname;
 
-    public Race race;
+    [Header("Inheritment")]
+    public Shape shape;
     public Job job;
 
+    [Header("Attributes")]
     public float health;
     public float mana;
     public float manaspd;
@@ -22,6 +25,12 @@ public class Character : MonoBehaviour
     public float critdmg;
     public float pureness;
 
-    public ActiveSkill activeSkill;
-    public PassiveSkill passiveSkill;
+    [Header("Skillset")]
+    public Skill basicAttack;
+
+    [Header("Renderer")]
+    public Mesh shapeMesh;
+    public Material shapeMaterial;
+    public Color shapeColor;
+
 }

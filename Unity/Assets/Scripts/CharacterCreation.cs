@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharacterCreation : MonoBehaviour
 {
     [Header("Possibles choices")]
-    public Race[] races;
+    public Shape[] shapes;
     public Job[] jobs;
 
     [Header("Inheritment")]
@@ -14,14 +14,12 @@ public class CharacterCreation : MonoBehaviour
     public Character mom;
 
     [Header("Identity")]
-    public int id;
+    public string id;
     public string name;
     public string surname;
-    public Race race;
+    public Shape shape;
     public Job job;
 
-    public ActiveSkill activeSkill;
-    public PassiveSkill passiveSkill;
 
     [Header("Screen elements")]
     public Button breedButton;
@@ -31,38 +29,50 @@ public class CharacterCreation : MonoBehaviour
     {
         GameObject createdCharacter = new GameObject();
         createdCharacter.AddComponent<Character>();
+        createdCharacter.AddComponent<MeshRenderer>();
+        createdCharacter.AddComponent<MeshFilter>();
         createdCharacter.name = "Created Character";
-        Character newChar = createdCharacter.GetComponent<Character>();
-        newChar.id = id;
-        newChar.name = name;
-        newChar.surname = surname;
-        newChar.race = SelectRace();
-        newChar.job = SelectJob();
-        //newChar.activeSkill = newChar.race.skills[Random.Range(0,race.skills.Length)];
-        //newChar.passiveSkill = passiveSkill;
-        
-        newChar.health = newChar.race.health + newChar.job.health;
-        newChar.mana = newChar.race.mana + newChar.job.mana;
-        newChar.manaspd = newChar.race.manaspd + newChar.job.manaspd;
-        newChar.attack = newChar.race.attack + newChar.job.attack;
-        newChar.magic = newChar.race.magic + newChar.job.magic;
-        newChar.defense = newChar.race.defense + newChar.job.defense;
-        newChar.attackspd = newChar.race.attackspd + newChar.job.attackspd;
-        newChar.critchance = newChar.race.critchance + newChar.job.critchance;
-        newChar.critdmg = newChar.race.critdmg + newChar.job.critdmg;
+        Character characterComponent = createdCharacter.GetComponent<Character>();
+        MeshRenderer meshRendererComponent = createdCharacter.GetComponent<MeshRenderer>();
+        MeshFilter meshFilterComponent = createdCharacter.GetComponent<MeshFilter>();
+
+        characterComponent.id = System.Guid.NewGuid().ToString();
+        characterComponent.name = name;
+        characterComponent.surname = surname;
+        characterComponent.shape = SelectShape();
+        characterComponent.job = SelectJob();
+        //characterComponent.skillset = characterComponent.shape.skillset[0];
+        //characterComponent.activeSkill = characterComponent.shape.activeSkills[Random.Range(0, characterComponent.shape.activeSkills.Length)];
+        //characterComponent.passiveSkill = characterComponent.job.passiveSkills[Random.Range(0, characterComponent.job.passiveSkills.Length)];
+        characterComponent.health = characterComponent.shape.health + characterComponent.job.health;
+        characterComponent.mana = characterComponent.shape.mana + characterComponent.job.mana;
+        characterComponent.manaspd = characterComponent.shape.manaspd + characterComponent.job.manaspd;
+        characterComponent.attack = characterComponent.shape.attack + characterComponent.job.attack;
+        characterComponent.magic = characterComponent.shape.magic + characterComponent.job.magic;
+        characterComponent.defense = characterComponent.shape.defense + characterComponent.job.defense;
+        characterComponent.attackspd = characterComponent.shape.attackspd + characterComponent.job.attackspd;
+        characterComponent.critchance = characterComponent.shape.critchance + characterComponent.job.critchance;
+        characterComponent.critdmg = characterComponent.shape.critdmg + characterComponent.job.critdmg;
+        characterComponent.shapeMesh = characterComponent.shape.shapeMesh;
+        characterComponent.shapeMaterial = characterComponent.job.material;
+        characterComponent.shapeColor = characterComponent.job.color;
+
+        meshFilterComponent.sharedMesh = characterComponent.shapeMesh;
+        meshRendererComponent.material = characterComponent.shapeMaterial;
+        meshRendererComponent.material.color = characterComponent.shapeColor;
 
         Job SelectJob()
         {
             int randomJob = (Random.Range(0, jobs.Length));
-            Debug.Log("Picked Job: " + races[randomJob]);
+            Debug.Log("Picked Job: " + jobs[randomJob]);
             return jobs[randomJob];
         }
 
-        Race SelectRace()
+        Shape SelectShape()
         {
-            int randomRace = (Random.Range(0, races.Length));
-            Debug.Log("Picked Race: " + jobs[randomRace]);
-            return races[randomRace];
+            int randomShape = (Random.Range(0, shapes.Length));
+            Debug.Log("Picked Shape: " + shapes[randomShape]);
+            return shapes[randomShape];
         }
 
 }
@@ -72,7 +82,7 @@ public class CharacterCreation : MonoBehaviour
     public void Breed(Character dad, Character mom)
     {
         surname = chooseSurname(dad.surname, mom.surname);
-        race = chooseRace(dad.race, mom.race);
+        shape = chooseShape(dad.shape, mom.shape);
         job = chooseJob(dad.job, mom.job);
     }
 
@@ -90,16 +100,16 @@ public class CharacterCreation : MonoBehaviour
                 return null;
         }
     }
-    private Race chooseRace(Race dadRace, Race momRace)
+    private Shape chooseShape(Shape dadShape, Shape momShape)
     {
-        int _randomRace = Random.Range(0, 2);
-        Debug.Log("Race pick: " + _randomRace);
-        switch (_randomRace)
+        int _randomShape = Random.Range(0, 2);
+        Debug.Log("Shape pick: " + _randomShape);
+        switch (_randomShape)
         {
             case 1:
-                return dadRace;
+                return dadShape;
             case 2:
-                return momRace;
+                return momShape;
             default:
                 return null;
         }
