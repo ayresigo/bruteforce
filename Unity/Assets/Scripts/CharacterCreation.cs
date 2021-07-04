@@ -36,7 +36,7 @@ public class CharacterCreation : MonoBehaviour
         MeshRenderer meshRendererComponent = createdCharacter.GetComponent<MeshRenderer>();
         MeshFilter meshFilterComponent = createdCharacter.GetComponent<MeshFilter>();
 
-        characterComponent.id = System.Guid.NewGuid().ToString();
+        //characterComponent.id = System.Guid.NewGuid().ToString();
         characterComponent.name = name;
         characterComponent.surname = surname;
         characterComponent.shape = SelectShape();
@@ -45,7 +45,7 @@ public class CharacterCreation : MonoBehaviour
         //characterComponent.activeSkill = characterComponent.shape.activeSkills[Random.Range(0, characterComponent.shape.activeSkills.Length)];
         //characterComponent.passiveSkill = characterComponent.job.passiveSkills[Random.Range(0, characterComponent.job.passiveSkills.Length)];
         characterComponent.health = characterComponent.shape.health + characterComponent.job.health;
-        characterComponent.mana = characterComponent.shape.mana + characterComponent.job.mana;
+        //characterComponent.mana = characterComponent.shape.mana + characterComponent.job.mana;
         characterComponent.manaspd = characterComponent.shape.manaspd + characterComponent.job.manaspd;
         characterComponent.attack = characterComponent.shape.attack + characterComponent.job.attack;
         characterComponent.magic = characterComponent.shape.magic + characterComponent.job.magic;

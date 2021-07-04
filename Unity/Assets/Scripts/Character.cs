@@ -5,28 +5,33 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Header("Indentity")]
-    public string id;
+    public int id;
+    public int ownerId;
     public string name;
     public string surname;
+    public string creationDate;
 
     [Header("Inheritment")]
     public Shape shape;
     public Job job;
 
     [Header("Attributes")]
-    public float health;
-    public float mana;
-    public float manaspd;
-    public float attack;
-    public float magic;
-    public float defense;
-    public float attackspd;
-    public float critchance;
-    public float critdmg;
-    public float pureness;
+    public int health;
+    public int manaspd;
+    public int attack;
+    public int magic;
+    public int defense;
+    public int resistance;
+    public int attackspd;
+    public int critchance;
+    public int accuracy;
+    public int evade;
+    public int critdmg;
+    public int pureness;
 
     [Header("Skillset")]
-    public Skill basicAttack;
+    public Skill.SkillName basicAttack;
+    public Skill.SkillName activeSkill;
 
     [Header("Renderer")]
     public Mesh shapeMesh;

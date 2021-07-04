@@ -13,15 +13,15 @@ public class Job : ScriptableObject
     public Material material;
     public Color color;
     [Space]
-    public float health = 250;
-    public float mana = 100;
-    public float manaspd = 20;
-    public float attack = 10;
-    public float magic = 10;
-    public float defense = 10;
-    public float attackspd = 10;
-    public float critchance = 10;
-    public float critdmg = 10;
+    public int health = 250;
+    public int mana = 100;
+    public int manaspd = 20;
+    public int attack = 10;
+    public int magic = 10;
+    public int defense = 10;
+    public int attackspd = 10;
+    public int critchance = 10;
+    public int critdmg = 10;
     [Space]
     public Skill[] basicAttacks;
 }
