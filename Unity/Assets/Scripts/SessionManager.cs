@@ -51,7 +51,18 @@ public class SessionManager : MonoBehaviour
             Debug.LogError(www.error);
     }
 
-   
+    Shape.ShapeName stringToShapeName(string shapeNameString)
+    {
+        Shape.ShapeName parsed_shapeName = (Shape.ShapeName)System.Enum.Parse(typeof(Shape.ShapeName), shapeNameString);
+        return parsed_shapeName;
+    }
+
+    Job.JobName stringToJobName(string jobNameString)
+    {
+        Job.JobName parsed_jobName = (Job.JobName)System.Enum.Parse(typeof(Job.JobName), jobNameString);
+        return parsed_jobName;
+    }
+
     Skill.SkillName stringToSkillName(string skillNameString)
     {
         Skill.SkillName parsed_skillName = (Skill.SkillName)System.Enum.Parse(typeof(Skill.SkillName), skillNameString);
@@ -69,8 +80,8 @@ public class SessionManager : MonoBehaviour
         newCharacterObject.creationDate = character.creation_date;
         newCharacterObject.name = character.name;
         newCharacterObject.surname = character.surname;
-        //newCharacterObject.shape = character.shape;
-        //newCharacterObject.job = character.job;
+        newCharacterObject.shape = stringToShapeName(character.shape);
+        newCharacterObject.job = stringToJobName(character.job);
         newCharacterObject.basicAttack = stringToSkillName(character.basic_attack);
         //newCharacterObject.activeSkill = character.active_skill;
         newCharacterObject.health = character.health;

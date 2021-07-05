@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Bruteforce/Shapes/New Shape", fileName = "New Shape")]
 public class Shape : ScriptableObject
 {
     public string id = System.Guid.NewGuid().ToString();
+    public ShapeName uniqueName;
     public string name;
     [Multiline] public string description;
     [Space]
@@ -22,4 +22,10 @@ public class Shape : ScriptableObject
     public int critdmg = 10;
     [Space]
     public Skill[] basicAttacks;
+
+    public enum ShapeName
+    {
+        None,
+        Diamond
+    }
 }
