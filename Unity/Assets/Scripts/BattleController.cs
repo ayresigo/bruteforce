@@ -23,41 +23,12 @@ public class BattleController : MonoBehaviour
     public Skill action;
     public GameObject[] target;
 
-    public void SimulateBattle()
-    {
-        castSkill(currentActor, action);
-    }
-
     private void Start()
     {
 
         StartCoroutine(StartBattle());
     }
 
-    void castSkill(GameObject caster, Skill skill)
-    {
-        switch (skill.type)
-        {
-            case Skill.Type.BasicAttack:
-                //caster.GetComponent<Character>().basicAttack.Cast(caster, getTarget(charInstance, caster, caster.GetComponent<Character>().basicAttack));
-                break;
-
-            case Skill.Type.Active:
-                //float reqMana = caster.GetComponent<Character>().basicAttack.reqMana;
-                float currentMana = caster.GetComponent<CharacterController>().currentMana;
-                //if(currentMana >= reqMana)
-                {
-                    //caster.GetComponent<Character>().activeSkill.Cast(caster, getTarget(charInstance, caster, caster.GetComponent<Character>().basicAttack));
-                    caster.GetComponent<CharacterController>().currentMana = 0;
-                }
-                break;            
-
-            case Skill.Type.Passive:
-                break;
-            default:
-                break;
-        }            
-    }
     GameObject[] getTarget(GameObject[] characters, GameObject caster, Skill skill)
     {   
         GameObject[] returnObject;
@@ -191,6 +162,58 @@ public class BattleController : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
+    public void addSkill(GameObject character, Skill.SkillName skill)
+    {
+        switch(skill)
+        {
+            case Skill.SkillName.BasicMeleeAttack:
+                character.AddComponent<BasicMeleeAttack>();
+                break;
+            case Skill.SkillName.BasicRangedAttack:
+                character.AddComponent<BasicRangedAttack>();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Skill getSkill(GameObject character, int type)
+    {
+        /* Tipos:
+         * 1 -> Ataque Basico
+         * 2 -> Skill Primária
+         * 3 -> Passiva 1
+         * 4 -> Passiva 2
+         */
+
+        Skill.SkillName skillType = Skill.SkillName.None;
+
+        switch (type)
+        {
+            case 1:
+                skillType = character.GetComponent<Character>().basicAttack;
+                break;
+            case 2:
+                skillType = character.GetComponent<Character>().activeSkill;
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+
+        switch(skillType)
+        {
+            case Skill.SkillName.BasicMeleeAttack:
+                return character.GetComponent<BasicMeleeAttack>();
+            case Skill.SkillName.BasicRangedAttack:
+                return character.GetComponent<BasicRangedAttack>();
+            default:
+                return null;
+        }
+    }
 
     GameObject SpawnCharacter(Character character)
     {
@@ -199,7 +222,7 @@ public class BattleController : MonoBehaviour
         newCharacter.AddComponent<CharacterController>();
         newCharacter.AddComponent<MeshRenderer>();
         newCharacter.AddComponent<MeshFilter>();
-        newCharacter.AddComponent<BaseAttack>(); ///////////////////////////CRIAR MÉTODO PARA RECUPERAR SKILLS DE CADA CHARACTER//////////////////////////////
+        addSkill(newCharacter, newCharacter.GetComponent<Character>().basicAttack);
 
         Character characterComponent = newCharacter.GetComponent<Character>();
         CharacterController characterControllerComponent = newCharacter.GetComponent<CharacterController>();
@@ -207,8 +230,7 @@ public class BattleController : MonoBehaviour
         MeshFilter meshFilterComponent = newCharacter.GetComponent<MeshFilter>();
 
         newCharacter.name = character.name + character.surname;
-        characterControllerComponent.character = newCharacter;
-        characterControllerComponent.currentHealth = character.GetComponent<Character>().health;
+        characterControllerComponent.characterObject = newCharacter;
         return newCharacter;
     }
 

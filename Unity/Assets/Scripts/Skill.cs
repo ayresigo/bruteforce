@@ -22,9 +22,9 @@ public abstract class Skill : MonoBehaviour
      *all the other effects in the game.     */
 
     public string id = System.Guid.NewGuid().ToString();
-    public SkillName name;
+    public SkillName uniqueName;
+    public string name;
     [Multiline] public string description;
-    public Type type;
     public float reqMana;
     public TargetType targetType;
     public bool critable;
@@ -77,12 +77,6 @@ public abstract class Skill : MonoBehaviour
         LowestDefenseEnemy,
         HighestDefenseEnemy
     }
-    public enum Type
-    {
-        BasicAttack,
-        Active,
-        Passive
-    }
     public abstract void Cast(GameObject caster, GameObject[] target);
 
     public float calculateMeleeDamage(GameObject caster, GameObject target)
@@ -90,6 +84,52 @@ public abstract class Skill : MonoBehaviour
         return (caster.GetComponent<Character>().attack * (100 / (100 + target.GetComponent<Character>().defense)));
     }
 }
+
+/*
+public string id = System.Guid.NewGuid().ToString();
+public SkillName name;
+[Multiline] public string description;
+public Type type;
+public float reqMana;
+public TargetType targetType;
+public bool critable;
+public SkillName nextSkill;
+ */
+
+public class BasicMeleeAttack : Skill
+{
+    private void Awake()
+    {
+        uniqueName = SkillName.BasicMeleeAttack;
+        description = "Ataque basico melee";
+        reqMana = 0;
+        targetType = TargetType.FirstEnemy;
+        critable = true;
+        nextSkill = Skill.SkillName.None;
+    }
+    public override void Cast(GameObject caster, GameObject[] target)
+    {
+
+    }
+}
+
+public class BasicRangedAttack : Skill
+{
+    private void Awake()
+    {
+        uniqueName = SkillName.BasicRangedAttack;
+        description = "Ataque basico ranged";
+        reqMana = 0;
+        targetType = TargetType.FirstEnemy;
+        critable = true;
+        nextSkill = Skill.SkillName.None;
+    }
+    public override void Cast(GameObject caster, GameObject[] target)
+    {
+
+    }
+}
+
 /*
 #region Skills
 [CreateAssetMenu(menuName = "Bruteforce/Skills/BasicAttack", fileName = "BasicAttack")]

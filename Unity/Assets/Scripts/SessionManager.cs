@@ -51,6 +51,13 @@ public class SessionManager : MonoBehaviour
             Debug.LogError(www.error);
     }
 
+   
+    Skill.SkillName stringToSkillName(string skillNameString)
+    {
+        Skill.SkillName parsed_skillName = (Skill.SkillName)System.Enum.Parse(typeof(Skill.SkillName), skillNameString);
+        return parsed_skillName;
+    }
+
     public void InstantiateCharacter(CharacterJSON character, GameObject session)
     {
         GameObject newCharacter = new GameObject();
@@ -64,7 +71,7 @@ public class SessionManager : MonoBehaviour
         newCharacterObject.surname = character.surname;
         //newCharacterObject.shape = character.shape;
         //newCharacterObject.job = character.job;
-        //newCharacterObject.basicAttack = character.basic_attack;
+        newCharacterObject.basicAttack = stringToSkillName(character.basic_attack);
         //newCharacterObject.activeSkill = character.active_skill;
         newCharacterObject.health = character.health;
         newCharacterObject.attack = character.attack;
@@ -74,7 +81,6 @@ public class SessionManager : MonoBehaviour
         newCharacterObject.critchance = character.critchance;
         newCharacterObject.critdmg = character.critdmg;
         newCharacterObject.evade = character.evade;
-
         session.GetComponent<SessionManager>().characters.Add(newCharacterObject);
     }
 }

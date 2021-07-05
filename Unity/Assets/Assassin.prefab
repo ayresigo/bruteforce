@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdeb46ca42d4f044cad796652af77af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 5a6d9efe-cd2e-4b3e-91b6-4da9a375c9a0
+  id: 5
+  ownerId: 0
   name: Xoblas
   surname: Denilza
+  creationDate: 
   shape: {fileID: 11400000, guid: ff97ec972a247d54497074e131bfddb9, type: 2}
   job: {fileID: 11400000, guid: e3439cd2a77c56c4ea10ecc74101ff60, type: 2}
   health: 550
