@@ -12,17 +12,15 @@ public class Character : MonoBehaviour
     public string creationDate;
 
     [Header("Inheritment")]
-    public Shape shape;
-    public Job job;
+    public Shape.ShapeName shape;
+    public Job.JobName job;
 
     [Header("Attributes")]
     public int health;
-    public int manaspd;
     public int attack;
     public int magic;
     public int defense;
     public int resistance;
-    public int attackspd;
     public int critchance;
     public int accuracy;
     public int evade;
