@@ -6,7 +6,6 @@ using UnityEngine;
 public class Job : ScriptableObject
 {
     public string id = System.Guid.NewGuid().ToString();
-    public JobName uniqueName;
     public string name;
     [Multiline]
     public string description;
@@ -25,13 +24,6 @@ public class Job : ScriptableObject
     public int critdmg = 10;
     [Space]
     public Skill[] basicAttacks;
-
-    public enum JobName
-    {
-        None,
-        Assassin,
-        Paladin
-    }
 }
 
 

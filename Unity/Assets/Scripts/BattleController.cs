@@ -7,7 +7,6 @@ public class BattleController : MonoBehaviour
     public Character[] playerTeam, enemyTeam, characters;
     public GameObject[] charInstance;
     public Skill[] skillList;
-    public MeshAndMaterials resources;
 
     // [ 0, 1, 2 ] vs [ 0, 1, 2 ]   codigo
     // [ 2, 1, 0 ]    [ 0, 1, 2 ]   render
@@ -23,6 +22,12 @@ public class BattleController : MonoBehaviour
     public GameObject currentActor;
     public Skill action;
     public GameObject[] target;
+
+    private void Start()
+    {
+
+        StartCoroutine(StartBattle());
+    }
 
     GameObject[] getTarget(GameObject[] characters, GameObject caster, Skill skill)
     {   
@@ -138,12 +143,8 @@ public class BattleController : MonoBehaviour
         return characters;
     }
 
-    void castSkill(GameObject caster, GameObject[] characters, int type)
-    {
-        getSkill(caster, type).Cast(caster, getTarget(characters, caster, getSkill(caster, type)));
-    }
 
-    public void StartBattle()
+    IEnumerator StartBattle()
     {
         characters = new Character[6];
         charInstance = new GameObject[6];
@@ -158,9 +159,10 @@ public class BattleController : MonoBehaviour
             charInstance[i] = SpawnCharacter(characters[i]);
         }
         turn = 1;
+        yield return new WaitForSeconds(1f);
     }
 
-    public void addSkills(GameObject character, Skill.SkillName skill)
+    public void addSkill(GameObject character, Skill.SkillName skill)
     {
         switch(skill)
         {
@@ -175,8 +177,14 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    public Skill.SkillName getSkillType(GameObject character, int type)
+    public Skill getSkill(GameObject character, int type)
     {
+        /* Tipos:
+         * 1 -> Ataque Basico
+         * 2 -> Skill Primária
+         * 3 -> Passiva 1
+         * 4 -> Passiva 2
+         */
 
         Skill.SkillName skillType = Skill.SkillName.None;
 
@@ -195,22 +203,8 @@ public class BattleController : MonoBehaviour
             default:
                 break;
         }
-        return skillType;
-    }
 
-    public Skill getSkill(GameObject character, int type)
-    {
-        /* Tipos:
-         * 1 -> Ataque Basico
-         * 2 -> Skill Primária
-         * 3 -> Passiva 1
-         * 4 -> Passiva 2
-         */
-
-        Skill.SkillName skillType = getSkillType(character, type);
-
-
-        switch (skillType)
+        switch(skillType)
         {
             case Skill.SkillName.BasicMeleeAttack:
                 return character.GetComponent<BasicMeleeAttack>();
@@ -228,44 +222,14 @@ public class BattleController : MonoBehaviour
         newCharacter.AddComponent<CharacterController>();
         newCharacter.AddComponent<MeshRenderer>();
         newCharacter.AddComponent<MeshFilter>();
-
-        addSkills(newCharacter, getSkillType(newCharacter, 1));
+        addSkill(newCharacter, newCharacter.GetComponent<Character>().basicAttack);
 
         Character characterComponent = newCharacter.GetComponent<Character>();
         CharacterController characterControllerComponent = newCharacter.GetComponent<CharacterController>();
         MeshRenderer meshRendererComponent = newCharacter.GetComponent<MeshRenderer>();
         MeshFilter meshFilterComponent = newCharacter.GetComponent<MeshFilter>();
-        Transform transformComponent = newCharacter.GetComponent<Transform>();
 
         newCharacter.name = character.name + character.surname;
-
-        characterComponent.id = character.id;
-        characterComponent.ownerId = character.ownerId;
-        characterComponent.name = character.name;
-        characterComponent.surname = character.surname;
-        characterComponent.creationDate = character.creationDate;
-        characterComponent.shape = character.shape;
-        characterComponent.job = character.job;
-        characterComponent.health = character.health;
-        characterComponent.attack = character.attack;
-        characterComponent.magic = character.magic;
-        characterComponent.defense = character.defense;
-        characterComponent.resistance = character.resistance;
-        characterComponent.critchance = character.critchance;
-        characterComponent.accuracy = character.accuracy;
-        characterComponent.evade = character.evade;
-        characterComponent.critdmg = character.critdmg;
-        characterComponent.basicAttack = character.basicAttack;
-        characterComponent.activeSkill = character.activeSkill;
-
-        meshFilterComponent.sharedMesh = resources.shapes[0].shapeMesh;
-        meshRendererComponent.material = resources.jobs[0].material;
-        meshRendererComponent.material.color = resources.jobs[0].color;
-
-        addSkills(newCharacter, getSkillType(newCharacter, 1));
-
-        transformComponent.position = new Vector3(-1f, 0f, 2.5f);
-
         characterControllerComponent.characterObject = newCharacter;
         return newCharacter;
     }

@@ -23,8 +23,7 @@ public class CharacterCreation : MonoBehaviour
 
     [Header("Screen elements")]
     public Button breedButton;
-}
-/*
+
     #region Create New Character
     public void CreateCharacter()
     {
@@ -36,7 +35,7 @@ public class CharacterCreation : MonoBehaviour
         Character characterComponent = createdCharacter.GetComponent<Character>();
         MeshRenderer meshRendererComponent = createdCharacter.GetComponent<MeshRenderer>();
         MeshFilter meshFilterComponent = createdCharacter.GetComponent<MeshFilter>();
-        /*
+
         //characterComponent.id = System.Guid.NewGuid().ToString();
         characterComponent.name = name;
         characterComponent.surname = surname;
@@ -47,11 +46,11 @@ public class CharacterCreation : MonoBehaviour
         //characterComponent.passiveSkill = characterComponent.job.passiveSkills[Random.Range(0, characterComponent.job.passiveSkills.Length)];
         characterComponent.health = characterComponent.shape.health + characterComponent.job.health;
         //characterComponent.mana = characterComponent.shape.mana + characterComponent.job.mana;
-        //characterComponent.manaspd = characterComponent.shape.manaspd + characterComponent.job.manaspd;
+        characterComponent.manaspd = characterComponent.shape.manaspd + characterComponent.job.manaspd;
         characterComponent.attack = characterComponent.shape.attack + characterComponent.job.attack;
         characterComponent.magic = characterComponent.shape.magic + characterComponent.job.magic;
         characterComponent.defense = characterComponent.shape.defense + characterComponent.job.defense;
-        //characterComponent.attackspd = characterComponent.shape.attackspd + characterComponent.job.attackspd;
+        characterComponent.attackspd = characterComponent.shape.attackspd + characterComponent.job.attackspd;
         characterComponent.critchance = characterComponent.shape.critchance + characterComponent.job.critchance;
         characterComponent.critdmg = characterComponent.shape.critdmg + characterComponent.job.critdmg;
         characterComponent.shapeMesh = characterComponent.shape.shapeMesh;
@@ -61,6 +60,7 @@ public class CharacterCreation : MonoBehaviour
         meshFilterComponent.sharedMesh = characterComponent.shapeMesh;
         meshRendererComponent.material = characterComponent.shapeMaterial;
         meshRendererComponent.material.color = characterComponent.shapeColor;
+
         Job SelectJob()
         {
             int randomJob = (Random.Range(0, jobs.Length));
@@ -77,7 +77,7 @@ public class CharacterCreation : MonoBehaviour
 
 }
     #endregion
-    /*
+
     #region Breeding
     public void Breed(Character dad, Character mom)
     {
@@ -132,4 +132,4 @@ public class CharacterCreation : MonoBehaviour
         }
     }
     #endregion
-}*/
+}
