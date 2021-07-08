@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     public string name;
     public string surname;
     public string creationDate;
+    public Rarity rarity;
 
     [Header("Inheritment")]
     public Shape.ShapeName shape;
@@ -36,4 +37,39 @@ public class Character : MonoBehaviour
     public Material shapeMaterial;
     public Color shapeColor;
 
+    public enum Rarity
+    {
+        common,
+        uncommon,
+        rare,
+        epic,
+        legendary,
+        mythic
+    }
+
+    public void passData(Character target)
+    {
+        target.id = id;
+        target.ownerId = ownerId;
+        target.name = name;
+        target.surname = surname;
+        target.creationDate = creationDate;
+        target.rarity = rarity;
+        target.shape = shape;
+        target.job = job;
+        target.health = health;
+        target.attack = attack;
+        target.defense = defense;
+        target.resistance = resistance;
+        target.critchance = critchance;
+        target.accuracy = accuracy;
+        target.evade = evade;
+        target.critdmg = critdmg;
+        target.pureness = pureness;
+        target.basicAttack = basicAttack;
+        target.activeSkill = activeSkill;
+        target.shapeMesh = shapeMesh;
+        target.shapeMaterial = shapeMaterial;
+        target.shapeColor = shapeColor;
+    }
 }

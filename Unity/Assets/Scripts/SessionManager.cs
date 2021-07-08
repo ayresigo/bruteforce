@@ -5,14 +5,22 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class SessionManager : MonoBehaviour
-{
+{ 
     [ReadOnly] public int accountId;
     [ReadOnly] public string login;
     [ReadOnly] public string creationDate;
+    [ReadOnly] public int privilegeLevel;
+    [ReadOnly] public int level;
+    [ReadOnly] public int energy;
+    [ReadOnly] public int gold;
+    [ReadOnly] public int diamond;
+    [ReadOnly] public Character char1, char2, char3;
     [ReadOnly] public List<Character> characters;
+    public GameObject loginPopup, lobby, common;
 
     private void Start()
     {
+        
         characters = new List<Character>();
     }
 
@@ -41,14 +49,21 @@ public class SessionManager : MonoBehaviour
         {
             inventory_info_json = www.downloadHandler.text;
             InventoryList inventory = JsonUtility.FromJson<InventoryList>("{\"characters\": " + inventory_info_json + "}");
+            Debug.Log("{\"characters\": " + inventory_info_json + "}");
             for (int i = 0; i < inventory.characters.Length; i++)
             {
-                Debug.Log("{\"characters\": " + inventory_info_json + "}");
                 session.GetComponent<SessionManager>().InstantiateCharacter(inventory.characters[i], session);
             }
         }
         else
             Debug.LogError(www.error);
+
+        if (loginPopup.active)
+        {
+            common.SetActive(true);
+            lobby.SetActive(true);
+            loginPopup.SetActive(false);            
+        }
     }
 
     Shape.ShapeName stringToShapeName(string shapeNameString)

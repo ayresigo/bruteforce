@@ -23,7 +23,14 @@ public class CharacterCreation : MonoBehaviour
 
     [Header("Screen elements")]
     public Button breedButton;
+
+    public void CreateCharacter()
+    {
+
+    }
 }
+
+
 /*
     #region Create New Character
     public void CreateCharacter()
