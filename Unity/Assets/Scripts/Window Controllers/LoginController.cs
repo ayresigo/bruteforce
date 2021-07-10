@@ -138,7 +138,8 @@ public class LoginController : MonoBehaviour
         sessionComponent.privilegeLevel = account_info.privilege_level;
         sessionComponent.level = account_info.level;
         sessionComponent.energy = account_info.energy;
-        sessionComponent.diamond = account_info.gold;
+        sessionComponent.gold = account_info.gold;
+        sessionComponent.diamond = account_info.diamond;
         sessionComponent.loginPopup = loginPopup;
         sessionComponent.lobby = lobby;
         sessionComponent.common = common;
