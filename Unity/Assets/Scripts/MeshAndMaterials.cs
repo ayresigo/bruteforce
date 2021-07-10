@@ -6,6 +6,6 @@ using UnityEngine;
 public class MeshAndMaterials : ScriptableObject
 {
     public bool start;
-    public Shape[] shapes;
+    public Race[] races;
     public Job[] jobs;
 }

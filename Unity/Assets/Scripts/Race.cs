@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shape : ScriptableObject
+public class Race : ScriptableObject
 {
     public string id = System.Guid.NewGuid().ToString();
-    public ShapeName uniqueName;
+    public RaceName uniqueName;
     public string name;
     [Multiline] public string description;
     [Space]
@@ -23,9 +23,10 @@ public class Shape : ScriptableObject
     [Space]
     public Skill[] basicAttacks;
 
-    public enum ShapeName
+    public enum RaceName
     {
-        None,
-        Diamond
+        Human,
+        Orc,
+        Elf
     }
 }

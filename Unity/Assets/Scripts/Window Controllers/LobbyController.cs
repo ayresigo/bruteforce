@@ -8,6 +8,7 @@ public class LobbyController : MonoBehaviour
     [Header("Session")]
     [ReadOnly] public GameObject session;
     public GameObject commonWindow;
+    public GameObject modularCharacter;
 
     [Header("Screen Elements")]
     [Header("User Info")]

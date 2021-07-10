@@ -8,6 +8,7 @@ public class CharacterSelection : MonoBehaviour
     public GameObject scrollViewContent;
     public GameObject newCard;
     public GameObject session;
+    public GameObject modularCharacter;
     public List<Character> characters;
 
     private void Awake()
@@ -27,26 +28,25 @@ public class CharacterSelection : MonoBehaviour
             CharacterCard cardComponent = newCard.GetComponent<CharacterCard>();
             newCard.transform.parent = scrollViewContent.transform;
             character.passData(newCardCharacterComponent);
-            newCardCharacterComponent.rarity = Character.Rarity.epic;
 
             switch(newCardCharacterComponent.rarity)
             {
-                case Character.Rarity.common:
+                case Character.Rarity.Common:
                     cardComponent.frame = cardComponent.commonFrame;
                     cardComponent.label = cardComponent.commonLabelPrefab;
                     hasRarity = true;
                     break;
-                case Character.Rarity.rare:
+                case Character.Rarity.Rare:
                     cardComponent.frame = cardComponent.rareFrame;
                     cardComponent.label = cardComponent.rareLabelPrefab;
                     hasRarity = true;
                     break;
-                case Character.Rarity.epic:
+                case Character.Rarity.Epic:
                     cardComponent.frame = cardComponent.epicFrame;
                     cardComponent.label = cardComponent.epicLabelPrefab;
                     hasRarity = true;
                     break;
-                case Character.Rarity.legendary:
+                case Character.Rarity.Legendary:
                     cardComponent.frame = cardComponent.legendaryFrame;
                     cardComponent.label = cardComponent.legendaryLabelPrefab;
                     hasRarity = true;
@@ -66,6 +66,7 @@ public class CharacterSelection : MonoBehaviour
                 cardComponent.characterName.SetActive(true);
                 cardComponent.characterName.GetComponent<TMPro.TMP_Text>().text = character.name + " " + character.surname;
                 cardComponent.thisFrame.sprite = cardComponent.frame;
+                modularCharacter.GetComponent<ModularCharacterRenderer>().RenderCharacter(character);
             } else
             {
                 cardComponent.addIcon.SetActive(true);

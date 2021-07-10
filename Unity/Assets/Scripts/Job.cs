@@ -29,6 +29,7 @@ public class Job : ScriptableObject
     public enum JobName
     {
         None,
+        Warrior,
         Assassin,
         Paladin
     }

@@ -244,7 +244,7 @@ public class BattleController : MonoBehaviour
         characterComponent.name = character.name;
         characterComponent.surname = character.surname;
         characterComponent.creationDate = character.creationDate;
-        characterComponent.shape = character.shape;
+        characterComponent.race = character.race;
         characterComponent.job = character.job;
         characterComponent.health = character.health;
         characterComponent.attack = character.attack;
@@ -258,7 +258,7 @@ public class BattleController : MonoBehaviour
         characterComponent.basicAttack = character.basicAttack;
         characterComponent.activeSkill = character.activeSkill;
 
-        meshFilterComponent.sharedMesh = resources.shapes[0].shapeMesh;
+        meshFilterComponent.sharedMesh = resources.races[0].shapeMesh;
         meshRendererComponent.material = resources.jobs[0].material;
         meshRendererComponent.material.color = resources.jobs[0].color;
 
