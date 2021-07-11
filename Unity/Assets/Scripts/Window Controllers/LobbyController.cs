@@ -6,7 +6,7 @@ using TMPro;
 public class LobbyController : MonoBehaviour
 {
     [Header("Session")]
-    [ReadOnly] public GameObject session;
+    public GameObject session;
     public GameObject commonWindow;
     public GameObject modularCharacter;
 
@@ -23,6 +23,7 @@ public class LobbyController : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Awakening Lobby Controller...");
         commonWindow.SetActive(true);
         SessionManager sessionComponent = session.GetComponent<SessionManager>();
         commonWindow.GetComponent<CommonWindowController>().session = session;

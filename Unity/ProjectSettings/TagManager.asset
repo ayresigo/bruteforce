@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
+  - UI
+  - AUX UI
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Aux UI
+    uniqueID: 3770393965
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 936081125
     locked: 0

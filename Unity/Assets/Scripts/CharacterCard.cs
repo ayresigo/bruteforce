@@ -15,5 +15,8 @@ public class CharacterCard : MonoBehaviour
     [Header("Screen Elements")]
     public Sprite frame;
     public Image thisFrame;
-    public GameObject label, stars, characterName;
+    public GameObject label, stars, characterName, character, glow, characterFrame, renderCamera;
+    public Shader renderShader;
+    public RenderTexture renderTexture;
+    public Material renderMaterial;
 }

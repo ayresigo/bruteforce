@@ -87,6 +87,7 @@ public class Character : MonoBehaviour
         target.creationDate = creationDate;
         target.rarity = rarity;
         target.rarity = rarity;
+        target.gender = gender;
         target.job = job;
         target.health = health;
         target.attack = attack;

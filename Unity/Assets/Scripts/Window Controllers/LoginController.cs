@@ -45,6 +45,11 @@ public class LoginController : MonoBehaviour
         StartCoroutine(signUp());
     }
 
+    public void Start()
+    {
+        Debug.Log("Starting Login Controller...");
+    }
+
     IEnumerator signUp()
     {
         WWWForm form = new WWWForm();
@@ -70,6 +75,7 @@ public class LoginController : MonoBehaviour
                 signup_feedback.text = www.downloadHandler.text;
                 break;
         }
+        www.Dispose();
     }
     public void callLogin()
     {
@@ -83,6 +89,8 @@ public class LoginController : MonoBehaviour
         form.AddField("pw", password);
 
         UnityWebRequest www = UnityWebRequest.Post("https://bruteforcegame.000webhostapp.com/index.php", form);
+        login_feedback.color = Color.white;
+        login_feedback.text = "Tentando conexao com o servidor...";
         yield return www.SendWebRequest();
 
         if (www.isDone)
@@ -122,6 +130,7 @@ public class LoginController : MonoBehaviour
             login_feedback.color = Color.red;
             login_feedback.text = www.error;
         }
+        www.Dispose();
     }
     
     IEnumerator startSession(string account_info_json)
@@ -144,6 +153,7 @@ public class LoginController : MonoBehaviour
         sessionComponent.lobby = lobby;
         sessionComponent.common = common;
         lobby.GetComponent<LobbyController>().session = session;
+        common.GetComponent<CommonWindowController>().session = session;
         StartCoroutine(sessionComponent.getInventory(sessionComponent.accountId, session));
         yield return new WaitForSeconds(1f);
     }

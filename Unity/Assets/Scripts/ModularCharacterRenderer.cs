@@ -9,6 +9,7 @@ public class ModularCharacterRenderer : MonoBehaviour
     public GameObject session;
     public GameObject modularCharacter;
     public Character[] characters;
+    public bool startLists = false;
 
     [Header("Material")]
     public Material mat;
@@ -65,8 +66,18 @@ public class ModularCharacterRenderer : MonoBehaviour
 
     private void Start()
     {
-        BuildLists();
-        if (enabledObjects.Count != 0)
+        Debug.Log("Starting Modular Character Renderer...");
+    }
+    private void Update()
+    {
+        if (startLists)
+        {
+            Debug.LogWarning("Building lists");
+            BuildLists();
+            characters = session.GetComponentsInChildren<Character>();
+            startLists = false;
+        }
+        /* if (enabledObjects.Count != 0)
         {
             foreach (GameObject g in enabledObjects)
             {
@@ -76,14 +87,14 @@ public class ModularCharacterRenderer : MonoBehaviour
 
         // clear enabled objects list
         enabledObjects.Clear();
-        Debug.Log("Cleaning List...");
+        Debug.Log("Cleaning List...");*/
 
-        session = GameObject.Find("PlayerSession");
-        characters = session.GetComponentsInChildren<Character>();
+        //session = GameObject.Find("PlayerSession");        
     }
 
-    GameObject GetParts (Character character, string part)
+    GameObject GetParts (GameObject instanciatedCharacter, string part)
     {
+        Character character = instanciatedCharacter.GetComponent<Character>();
         switch(part)
         {
             case "head":
@@ -538,7 +549,7 @@ public class ModularCharacterRenderer : MonoBehaviour
         }
     }
 
-    public void RenderCharacter(Character character)
+    public GameObject RenderCharacter(Character character)
     {
         string[] parts = { "head", "eyebrow", "facialHair", "torso",
             "arm_Upper_Right", "arm_Upper_Left", "arm_Lower_Right", 
@@ -552,27 +563,38 @@ public class ModularCharacterRenderer : MonoBehaviour
             "knee_Attachement_Right", "knee_Attachement_Left", 
             "all_12_Extra", "elf_Ear" };
 
-        GameObject newCharacter = Instantiate(modularCharacter) as GameObject;
-        newCharacter.SetActive(true);
-        newCharacter.AddComponent<Character>();
-        newCharacter.name = "[ " + character.id + " ] " + character.name + character.surname;
-        character.passData(newCharacter.GetComponent<Character>());
-        newCharacter.GetComponent<ModularCharacterRenderer>().enabledObjects = new List<GameObject>();
+        modularCharacter.AddComponent<Character>();
+        character.passData(modularCharacter.GetComponent<Character>());
+        modularCharacter.GetComponent<ModularCharacterRenderer>().enabledObjects = new List<GameObject>();
         for (int i = 0; i < parts.Length; i++)
         {
-            GameObject part = GetParts(newCharacter.GetComponent<Character>(), parts[i]);
+            GameObject part = GetParts(modularCharacter, parts[i]);
             if (part == null)
             {
                 Debug.LogWarning(parts[i]+": null object");
             } else
-            {
-                Debug.Log(parts[i] + ": " + part.transform.parent.name +" -> "+part.name);
+            { 
                 part.SetActive(true);
-                Debug.Log(part.active);
-                newCharacter.GetComponent<ModularCharacterRenderer>().enabledObjects.Add(part);
-                Debug.Log(newCharacter.GetComponent<ModularCharacterRenderer>().enabledObjects.Count);
-            }          
+                modularCharacter.GetComponent<ModularCharacterRenderer>().enabledObjects.Add(part);
+            }
         }
+        GameObject newCharacter = Instantiate(modularCharacter) as GameObject;
+        newCharacter.SetActive(true);
+        newCharacter.AddComponent<Character>();        
+        newCharacter.name = "[ " + character.id + " ] " + character.name + character.surname;
+
+        if (modularCharacter.GetComponent<ModularCharacterRenderer>().enabledObjects.Count != 0)
+        {
+            foreach (GameObject g in enabledObjects)
+            {
+                g.SetActive(false);
+            }
+        }
+
+        // clear enabled objects list
+        enabledObjects.Clear();
+        Destroy(modularCharacter.GetComponent<Character>());
+        return newCharacter;
     }
 
     void ActivateItem(GameObject go)

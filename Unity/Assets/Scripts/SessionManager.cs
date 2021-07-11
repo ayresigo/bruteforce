@@ -6,20 +6,21 @@ using UnityEngine.Networking;
 
 public class SessionManager : MonoBehaviour
 { 
-    [ReadOnly] public int accountId;
-    [ReadOnly] public string login;
-    [ReadOnly] public string creationDate;
-    [ReadOnly] public int privilegeLevel;
-    [ReadOnly] public int level;
-    [ReadOnly] public int energy;
-    [ReadOnly] public int gold;
-    [ReadOnly] public int diamond;
-    [ReadOnly] public Character char1, char2, char3;
-    [ReadOnly] public List<Character> characters;
+    public int accountId;
+    public string login;
+    public string creationDate;
+    public int privilegeLevel;
+    public int level;
+    public int energy;
+    public int gold;
+    public int diamond;
+    public Character char1, char2, char3;
+    public List<Character> characters;
     public GameObject loginPopup, lobby, common, modularCharacter;
 
     private void Start()
     {
+        Debug.Log("Starting Session Manager...");
         characters = new List<Character>();
     }
 
@@ -61,6 +62,11 @@ public class SessionManager : MonoBehaviour
             {
                 session.GetComponent<SessionManager>().InstantiateCharacter(inventory.characters[i], session);
             }
+
+            modularCharacter = lobby.GetComponent<LobbyController>().modularCharacter;
+            modularCharacter.SetActive(true);
+            modularCharacter.GetComponent<ModularCharacterRenderer>().session = session;
+            modularCharacter.GetComponent<ModularCharacterRenderer>().startLists = true;
         }
         else
             Debug.LogError(www.error);
@@ -71,6 +77,8 @@ public class SessionManager : MonoBehaviour
             lobby.SetActive(true);
             loginPopup.SetActive(false);            
         }
+
+        www.Dispose();
     }
 
     Character.Rarity stringToRarity(string rarityString)
@@ -104,7 +112,7 @@ public class SessionManager : MonoBehaviour
         GameObject newCharacter = new GameObject();
         newCharacter.AddComponent<Character>();
         newCharacter.transform.SetParent(session.transform);
-        newCharacter.name = "["+character.id+"] "+character.name+character.surname;
+        newCharacter.name = "[ "+character.id+" ] "+character.name+character.surname;
         Character newCharacterObject = newCharacter.GetComponent<Character>();
         newCharacterObject.id = character.id;
         newCharacterObject.ownerId = character.fk_owner_id;
@@ -151,8 +159,6 @@ public class SessionManager : MonoBehaviour
         newCharacterObject.knee_Attachement_Left = character.knee_Attachement_Left;
         newCharacterObject.elf_Ear = character.elf_Ear;
 
-        modularCharacter = lobby.GetComponent<LobbyController>().modularCharacter;
-        modularCharacter.SetActive(true);
         session.GetComponent<SessionManager>().characters.Add(newCharacterObject);
     }
 }
