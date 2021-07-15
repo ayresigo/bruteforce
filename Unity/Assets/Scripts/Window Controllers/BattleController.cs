@@ -96,7 +96,7 @@ public class BattleController : MonoBehaviour
             }
         }
 
-        switch (skill.targetType)
+       /* switch (skill.targetType)
         {
             case Skill.TargetType.Self:
                 returnObject = new GameObject[1];
@@ -134,13 +134,8 @@ public class BattleController : MonoBehaviour
                 return returnObject;
             default:
                 break;
-        }
+        }*/
         return characters;
-    }
-
-    void castSkill(GameObject caster, GameObject[] characters, int type)
-    {
-        getSkill(caster, type).Cast(caster, getTarget(characters, caster, getSkill(caster, type)));
     }
 
     public void StartBattle()
@@ -160,20 +155,6 @@ public class BattleController : MonoBehaviour
         turn = 1;
     }
 
-    public void addSkills(GameObject character, Skill.SkillName skill)
-    {
-        switch(skill)
-        {
-            case Skill.SkillName.BasicMeleeAttack:
-                character.AddComponent<BasicMeleeAttack>();
-                break;
-            case Skill.SkillName.BasicRangedAttack:
-                character.AddComponent<BasicRangedAttack>();
-                break;
-            default:
-                break;
-        }
-    }
 
     public Skill.SkillName getSkillType(GameObject character, int type)
     {
@@ -198,28 +179,6 @@ public class BattleController : MonoBehaviour
         return skillType;
     }
 
-    public Skill getSkill(GameObject character, int type)
-    {
-        /* Tipos:
-         * 1 -> Ataque Basico
-         * 2 -> Skill Primária
-         * 3 -> Passiva 1
-         * 4 -> Passiva 2
-         */
-
-        Skill.SkillName skillType = getSkillType(character, type);
-
-
-        switch (skillType)
-        {
-            case Skill.SkillName.BasicMeleeAttack:
-                return character.GetComponent<BasicMeleeAttack>();
-            case Skill.SkillName.BasicRangedAttack:
-                return character.GetComponent<BasicRangedAttack>();
-            default:
-                return null;
-        }
-    }
 
     GameObject SpawnCharacter(Character character)
     {
@@ -228,8 +187,6 @@ public class BattleController : MonoBehaviour
         newCharacter.AddComponent<CharacterController>();
         newCharacter.AddComponent<MeshRenderer>();
         newCharacter.AddComponent<MeshFilter>();
-
-        addSkills(newCharacter, getSkillType(newCharacter, 1));
 
         Character characterComponent = newCharacter.GetComponent<Character>();
         CharacterController characterControllerComponent = newCharacter.GetComponent<CharacterController>();
@@ -261,8 +218,6 @@ public class BattleController : MonoBehaviour
         meshFilterComponent.sharedMesh = resources.races[0].shapeMesh;
         meshRendererComponent.material = resources.jobs[0].material;
         meshRendererComponent.material.color = resources.jobs[0].color;
-
-        addSkills(newCharacter, getSkillType(newCharacter, 1));
 
         transformComponent.position = new Vector3(-1f, 0f, 2.5f);
 

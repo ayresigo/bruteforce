@@ -4608,8 +4608,8 @@ MonoBehaviour:
   m_Content: {fileID: 884855689}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
+  m_MovementType: 0
+  m_Elasticity: 0
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
@@ -17120,6 +17120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1542632823}
   - component: {fileID: 1542632824}
+  - component: {fileID: 1542632825}
   m_Layer: 5
   m_Name: login popup
   m_TagString: Untagged
@@ -17179,6 +17180,19 @@ MonoBehaviour:
   signup_submitButton: {fileID: 1069377181}
   signup_fakeSubmitButton: {fileID: 224498047}
   signup_feedback: {fileID: 1869378839}
+--- !u!114 &1542632825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542632822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a651fceeeaa87ff40a5dbfae881301e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameVersion: 0.1
 --- !u!1 &1542795482
 GameObject:
   m_ObjectHideFlags: 0

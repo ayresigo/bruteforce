@@ -33,6 +33,15 @@ public class Character : MonoBehaviour
     public Skill.SkillName basicAttack;
     public Skill.SkillName activeSkill;
 
+    /* 0 -> basic attack
+     * 1 -> active skill
+     * 2 -> passive 1
+     * 3 -> passive 2
+     * 4 -> trigger 1
+     * 5 -> trigger 2      */
+
+    public Skill[] skillSet = new Skill[6];
+
     [Header("Visuals")]
     public string head;
     public string eyebrow;
@@ -67,7 +76,7 @@ public class Character : MonoBehaviour
         Uncommon,
         Rare,
         Epic,
-        Legendary,
+        Legendary, 
         Mythic,
         Eternal
     }
@@ -85,7 +94,6 @@ public class Character : MonoBehaviour
         target.name = name;
         target.surname = surname;
         target.creationDate = creationDate;
-        target.rarity = rarity;
         target.rarity = rarity;
         target.gender = gender;
         target.job = job;

@@ -34,14 +34,14 @@ public class CharacterSelection : MonoBehaviour
         AUXCanvas.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (characters.Count != 0)
         {
             if (rectsDiff != 0)
             {
                 //scroll rect do auxcontent recebe a normalized position do scroll rect principal
-                scrollViewContent.transform.localPosition = AUXContent.transform.localPosition / rectsDiff;
+                scrollViewContent.transform.localPosition = AUXContent.transform.localPosition;// rectsDiff;
                 scrollRectA = scrollViewContent.transform.localPosition;
                 scrollRectB = AUXContent.transform.localPosition;
             }            

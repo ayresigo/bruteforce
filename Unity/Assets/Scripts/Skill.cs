@@ -1,8 +1,8 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : MonoBehaviour
+public abstract class Skill : ScriptableObject
 {
     /*Option #2: All-in-One Spells
      *
@@ -24,25 +24,54 @@ public abstract class Skill : MonoBehaviour
     public string id = System.Guid.NewGuid().ToString();
     public SkillName uniqueName;
     public string name;
+    public Sprite icon;
     [Multiline] public string description;
-    public float reqMana;
+    public Character.Rarity rarity;
+    public SkillCategory category;
+    public SkillType type;
     public TargetType targetType;
-    public bool critable;
-    public SkillName nextSkill;
+    public Triggers triggeredBy;
+    public TriggerChance[] triggerChance;
+    public AttModifier[] attModifier;    
 
+    #region enums
+    public enum SkillType
+    {
+        None,
+        BasicAttack,
+        Active,
+        Passive,
+        Trigger
+    }
+    public enum Triggers
+    {
+        None,
+        BattleStart,
+        BattleEnd,
+        Updating,
+        PickingTeams,
+        Critical
+    }
     public enum SkillName
     {
         None,
         BasicMeleeAttack,
         BasicRangedAttack
     }
-    public enum EffectType
+    public enum SkillCategory
     {
         None,
-        Stun
+        Ofensive,
+        Defensive,
+        Support
     }
     public enum TargetType
     {
+        /*
+         * Alterar no getTarget() caso haja alguma alteração!
+         */
+
+        None,
         Self,
         Caster,
         RandomAlly,
@@ -77,99 +106,39 @@ public abstract class Skill : MonoBehaviour
         LowestDefenseEnemy,
         HighestDefenseEnemy
     }
-    public abstract void Cast(GameObject caster, GameObject[] target);
-
-    public float calculateMeleeDamage(GameObject caster, GameObject target)
+    public enum Attributes
     {
-        return (caster.GetComponent<Character>().attack * (100 / (100 + target.GetComponent<Character>().defense)));
+        None,
+        Health,
+        Attack,
+        Defense,
+        Magic,
+        Accuracy,
+        Evade,
+        CritChance,
+        CritDamage
     }
+    #endregion
+
+    [System.Serializable]
+    public class AttModifier
+    {
+        public Attributes attribute;
+        public TargetType target;
+        [Min(0)] public int intModifier = 0;
+        [Min(0)] public float floatModifier = 0;
+        public bool integerModifier = true;
+        public bool positiveModifier = true;
+    }
+
+    [System.Serializable]
+    public class TriggerChance
+    {
+        public TargetType target;
+        public Triggers applyEffect;
+        [Range(0f, 1f)]
+        public float chance;
+    }
+
+    public abstract void Cast();
 }
-
-/*
-public string id = System.Guid.NewGuid().ToString();
-public SkillName name;
-[Multiline] public string description;
-public Type type;
-public float reqMana;
-public TargetType targetType;
-public bool critable;
-public SkillName nextSkill;
- */
-
-public class BasicMeleeAttack : Skill
-{
-    private void Awake()
-    {
-        uniqueName = SkillName.BasicMeleeAttack;
-        description = "Ataque basico melee";
-        reqMana = 0;
-        targetType = TargetType.FirstEnemy;
-        critable = true;
-        nextSkill = Skill.SkillName.None;
-    }
-    public override void Cast(GameObject caster, GameObject[] target)
-    {
-
-    }
-}
-
-public class BasicRangedAttack : Skill
-{
-    private void Awake()
-    {
-        uniqueName = SkillName.BasicRangedAttack;
-        description = "Ataque basico ranged";
-        reqMana = 0;
-        targetType = TargetType.FirstEnemy;
-        critable = true;
-        nextSkill = Skill.SkillName.None;
-    }
-    public override void Cast(GameObject caster, GameObject[] target)
-    {
-
-    }
-}
-
-/*
-#region Skills
-[CreateAssetMenu(menuName = "Bruteforce/Skills/BasicAttack", fileName = "BasicAttack")]
-public class BasicAttack : Skill
-{
-    private void Awake()
-    {
-        name = "Basic Attack";
-        description = "Basic attack that deals (caster attack * (100 / (100 + target defense))";
-        type = Type.BasicAttack;
-        targetType = TargetType.FirstEnemy;
-        critable = true;
-    }
-
-    public override void Cast(GameObject caster, GameObject[] target)
-    {
-        float damageAmount;
-        for (int i = 0; i < target.Length; i++)
-        {
-            damageAmount = calculateMeleeDamage(caster, target[i]);
-            target[i].GetComponent<CharacterController>().takeDamage(damageAmount);
-        }
-    }
-}
-[CreateAssetMenu(menuName = "Bruteforce/Skills/Punch", fileName = "Punch")]
-public class Punch : Skill
-{
-    private void Awake()
-    {
-        name = "Punch";
-        description = "Throws a punch to the closest enemy dealing (attack) damage. If the casters (health) is under 50%, inflicts 2x damage.";
-        type = Type.BasicAttack;
-        targetType = TargetType.FirstEnemy;
-        critable = true;
-    }
-
-    public override void Cast(GameObject caster, GameObject[] target)
-    {
-
-    }
-}
-#endregion
-*/
