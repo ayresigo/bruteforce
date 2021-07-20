@@ -74,7 +74,7 @@ public abstract class Skill : ScriptableObject
         None,
         Self,
         Caster,
-        RandomAlly,
+        RandomAlly, 
         FirstAlly,
         SecondAlly,
         ThirdAlly,

@@ -7,8 +7,16 @@ public class CharacterController : MonoBehaviour
     public GameObject characterObject;
     private CharacterController characterController;
     private Character character;
-    public float currentHealth;
-    public float currentMana;
+    public int currentHealth;
+    public int currentMana;
+    public int currentAttack;
+    public int currentDefense;
+    public int currentEvasion;
+    public int currentAccuracy;
+    public int currentMagic;
+    public int currentResistance;
+    public int currentCritChance;
+    public int currentCritDamage;
     public bool isDead, isaValidTarget;
     public int team;    
 
@@ -28,7 +36,7 @@ public class CharacterController : MonoBehaviour
 
     
 
-    public bool takeDamage(float amount)
+    public bool takeDamage(int amount)
     {
         currentHealth -= amount;
         if (currentHealth <= 0)
